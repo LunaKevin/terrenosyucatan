@@ -1,0 +1,381 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO PRINCIPAL -->
+  <title>Terrenos en Yucatán cerca de la playa | Inversión desde México</title>
+  <meta name="description" content="Invierte en terrenos en Yucatán cerca de la playa. Oportunidad desde cualquier parte de México. Alta plusvalía y financiamiento accesible." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- KEYWORDS (ES + EN) -->
+  <meta name="keywords" content="
+    terrenos en Yucatán, terrenos cerca de la playa, inversión en Yucatán,
+    lotes en venta Yucatán, terrenos baratos México, inversión inmobiliaria México,
+    comprar terreno en México, terrenos en venta cerca del mar,
+    land for sale Mexico, land for sale Yucatan, beachfront land Mexico,
+    real estate investment Mexico, buy land in Mexico, Yucatan real estate
+  " />
+
+  <!-- OPEN GRAPH (FACEBOOK / WHATSAPP / LINK PREVIEW) -->
+  <meta property="og:title" content="Terrenos en Yucatán cerca de la playa" />
+  <meta property="og:description" content="Invierte desde cualquier parte de México en terrenos con alta plusvalía en Yucatán." />
+  <meta property="og:image" content="https://tudominio.com/hero-desktop.webp" />
+  <meta property="og:url" content="https://tudominio.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- TWITTER (opcional pero pro) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Terrenos en Yucatán cerca de la playa" />
+  <meta name="twitter:description" content="Invierte en terrenos en Yucatán desde cualquier parte de México." />
+  <meta name="twitter:image" content="https://tudominio.com/hero-desktop.webp" />
+
+  <!-- PRELOAD HERO -->
+  <link rel="preload" as="image" href="/hero-desktop.webp" />
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- GOOGLE ANALYTICS (REEMPLAZA G-XXXX) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XXXX');
+  </script>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">Terrenos Yucatán</div>
+  <div class="nav-links">
+    <a href="#beneficios">Beneficios</a>
+    <a href="#galeria">Galería</a>
+    <a href="#form">Contacto</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <picture>
+    <source srcset="/hero-mobile.webp" media="(max-width: 768px)" type="image/webp">
+    <source srcset="/hero-desktop.webp" media="(min-width: 769px)" type="image/webp">
+    <img src="/hero-desktop.webp" alt="Terreno en Yucatán cerca de la playa" loading="eager"/>
+  </picture>
+
+  <div class="overlay">
+    <h1>Terrenos en Yucatán cerca de la playa</h1>
+    <p>Invierte desde cualquier parte de México en una zona con alto crecimiento</p>
+
+    <a class="btn" href="#form">
+      Contactar por WhatsApp
+    </a>
+  </div>
+</section>
+
+<section id="beneficios" class="section">
+  <h2>Una oportunidad diferente</h2>
+  <div class="grid">
+    <div class="card">🌴 Ubicación estratégica</div>
+    <div class="card">💧 Entorno natural exclusivo</div>
+    <div class="card">💰 Financiamiento accesible</div>
+    <div class="card">📜 Propiedad privada</div>
+  </div>
+</section>
+
+<section id="galeria" class="gallery-section">
+  <h2>Conoce el entorno</h2>
+  <div class="gallery">
+    <img src="/adqwez.jpeg" loading="lazy" />
+    <img src="/adsdf.jpeg" loading="lazy" />
+    <img src="/aqwe.jpeg" loading="lazy" />
+  </div>
+</section>
+
+<section class="investment">
+  <h2>Desde <span class="price">$62,500 MXN</span></h2>
+  <p>Pagos desde <span class="price-small">$1,800 mensuales</span></p>
+</section>
+
+<section class="cta">
+  <h2>Recibe información personalizada</h2>
+  <a class="btn whatsapp-btn" href="#">
+    <img src="/Android_App_Icon_2026.png" class="icon" />
+    Contactar por WhatsApp
+  </a>
+</section>
+
+<section id="form" class="form">
+  <h2>Agenda información</h2>
+
+  <form id="leadForm">
+    <input placeholder="Nombre" id="nombre" required />
+    <button type="submit">Quiero información</button>
+  </form>
+</section>
+
+<div id="lightbox" class="lightbox">
+  <img id="lightbox-img" />
+</div>
+
+<a target="_blank" class="whatsapp-float whatsapp-btn">
+  <img src="/Android_App_Icon_2026.png" />
+</a>
+
+<footer>
+  Este sitio actúa como canal de contacto independiente.
+</footer>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+
+  const PHONE = "529992768570";
+
+  function buildMessage() {
+    const nombre = document.getElementById("nombre")?.value || "";
+
+    if (nombre) {
+      return `Hola, soy ${nombre}, me interesa más información sobre terrenos en Yucatán.`;
+    }
+
+    return "Hola, quiero información sobre terrenos en Yucatán";
+  }
+
+  function sendToWhatsApp(e){
+    e.preventDefault();
+    const mensaje = buildMessage();
+    window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(mensaje)}`, "_blank");
+  }
+
+  document.querySelectorAll(".whatsapp-btn").forEach(btn => {
+    btn.addEventListener("click", sendToWhatsApp);
+  });
+
+  const form = document.getElementById("leadForm");
+
+  if (form) {
+    form.addEventListener("submit", sendToWhatsApp);
+  }
+
+  // LIGHTBOX MEJORADO (IMAGEN COMPLETA)
+  const images = document.querySelectorAll(".gallery img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  images.forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "flex";
+
+      //  usa la imagen ORIGINAL sin recorte
+      lightboxImg.src = img.src;
+
+      lightboxImg.style.objectFit = "contain";
+    });
+  });
+
+  lightbox.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
+
+});
+</script>
+
+</body>
+</html>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  z-index: 1000;
+}
+
+.nav-links a {
+  margin-left: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  margin-top: 60px;
+  position: relative;
+  height: 100vh;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+}
+
+.btn {
+  background: #25D366;
+  color: white;
+  padding: 14px 26px;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+.whatsapp-float img {
+  width: 40px;
+  height: 40px;
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.price {
+  color: #FFD700;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.price-small {
+  color: #25D366;
+  font-weight: bold;
+}
+
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: #1f2937;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+/*  GALERÍA MEJORADA */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/*  HOVER */
+.gallery img:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+/* LIGHTBOX FULL */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain; /*  evita recorte */
+}
+
+.investment, .cta, .form {
+  padding: 60px;
+  text-align: center;
+}
+
+input, select {
+  width: 80%;
+  padding: 12px;
+  margin: 10px auto;
+  display: block;
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  input, select {
+    width: 90%;
+  }
+}
+</style>

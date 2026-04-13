@@ -80,16 +80,9 @@
 
 <section id="beneficios" class="section">
   <h2>Una oportunidad diferente</h2>
-  <div class="grid beneficios-grid">
-    <div class="card-image">
-      <img src="/beneficio-ubicacion.jpeg" alt="Ubicación estratégica en Yucatán">
-      <div class="card-overlay">Ubicación estratégica</div>
-
-    </div>
-  </div>
   <div class="grid">
     <div class="card">🌴 Ubicación estratégica</div>
-
+    <div class="card">💧 Entorno natural exclusivo</div>
     <div class="card">💰 Financiamiento accesible</div>
     <div class="card">📜 Propiedad privada</div>
   </div>
@@ -121,9 +114,26 @@
   <h2>Agenda información</h2>
 
   <form id="leadForm">
-    <input placeholder="Nombre" id="nombre" required />
-    <button type="submit">Quiero información</button>
+    <div class="hidden" aria-hidden="true">
+      <label for="b_website">Si ves esto, no lo llenes</label>
+      <input type="text" name="b_website" id="b_website" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="text" placeholder="Nombre completo" id="nombre" autocomplete="name" required />
+    <input type="tel" id="phoneNumber" autocomplete="tel"required>
+    <select id="uso" name="uso" required class="border p-2 rounded bg-white">
+        <option value="" disabled selected>¿Para qué buscas el terreno?</option>
+        <option value="vivir">Para construir mi casa</option>
+        <option value="inversion">Inversión a largo plazo</option>
+        <option value="negocio">Uso comercial</option>
+    </select>
+    <input type="checkbox" name="consentimiento" required class="mt-1" /> 
+      <span>
+        He leído y acepto el <strong>Aviso de Privacidad</strong>. Autorizo el contacto comercial vía WhatsApp/Email para recibir la lista de precios y disponibilidad.
+      </span>
+    
+    <button type="submit">Habla con un Asesor</button>
   </form>
+  
 </section>
 
 <div id="lightbox" class="lightbox">
@@ -144,12 +154,15 @@ window.addEventListener("DOMContentLoaded", () => {
   const PHONE = "529992768570";
 
   function buildMessage() {
+    const rtext = document.getElementById("b_website")?.value || "";
     const nombre = document.getElementById("nombre")?.value || "";
+    const telefono = document.getElementById("phoneNumber")?.value || "";
+    const uso = document.getElementById("uso")?.value || "";
+    const consentimiento = document.querySelector('input[name="consentimiento"]')?.checked;
 
-    if (nombre) {
+    if (nombre && telefono && uso && consentimiento) {
       return `Hola, soy ${nombre}, me interesa más información sobre terrenos en Yucatán.`;
     }
-
     return "Hola, quiero información sobre terrenos en Yucatán";
   }
 
@@ -309,46 +322,6 @@ h1, h2 {
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
-.beneficios-grid{
-  display:grid;
-  grid-template-columns: repeat(2,1fr);
-  gap:20px
-}
-.card-img {
-  position:relative;
-  border-radius:12px;
-  overflow:hidden;
-  cursor:pointer;
-  
-}
-.card-img img {
-  width:100%;
-  height: 220px;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-.card-overlay{
-  position:absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  
-  background: rgba(0,0,0,0.4);
-  color:white;
-  font-weight: 600;
-  font-size: 18px;
-  
-  padding:10px;
-  transition: background 0.3s ease;
-}
-.card-img:hover img{
-  transform:scale(1.08);
-  .card-img:hover .card-overlay { 
-    background: rgba(0,0,0,0.6);
-  }
-}
 
 .card {
   background: #1f2937;
@@ -405,6 +378,10 @@ input, select {
   margin: 10px auto;
   display: block;
 }
+.hidden {
+  display:none !important;
+  visibility:hidden;
+}
 
 footer {
   padding: 20px;
@@ -423,12 +400,6 @@ footer {
 
   input, select {
     width: 90%;
-  }
-  .beneficios-grid{
-    grid-template-columns: 1fr;
-  }
-  .card-img img{
-    height: 200px;
   }
 }
 </style>

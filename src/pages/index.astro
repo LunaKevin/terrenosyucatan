@@ -2,7 +2,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TT6TCMQL');</script>
+  <!-- End Google Tag Manager -->
   <!-- SEO PRINCIPAL -->
   <title>Terrenos en Yucatán cerca de la playa | Inversión desde México</title>
   <meta name="description" content="Invierte en terrenos en Yucatán cerca de la playa. Oportunidad desde cualquier parte de México. Alta plusvalía y financiamiento accesible." />
@@ -20,15 +26,15 @@
   <!-- OPEN GRAPH (FACEBOOK / WHATSAPP / LINK PREVIEW) -->
   <meta property="og:title" content="Terrenos en Yucatán cerca de la playa" />
   <meta property="og:description" content="Invierte desde cualquier parte de México en terrenos con alta plusvalía en Yucatán." />
-  <meta property="og:image" content="https://tudominio.com/hero-desktop.webp" />
-  <meta property="og:url" content="https://tudominio.com" />
+  <meta property="og:image" content="https://terrenosyucatan.vercel.app/hero-desktop.webp" />
+  <meta property="og:url" content="https://terrenosyucatan.vercel.app" />
   <meta property="og:type" content="website" />
 
   <!-- TWITTER (opcional pero pro) -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Terrenos en Yucatán cerca de la playa" />
   <meta name="twitter:description" content="Invierte en terrenos en Yucatán desde cualquier parte de México." />
-  <meta name="twitter:image" content="https://tudominio.com/hero-desktop.webp" />
+  <meta name="twitter:image" content="https://terrenosyucatan.vercel.app/hero-desktop.webp" />
 
   <!-- PRELOAD HERO -->
   <link rel="preload" as="image" href="/hero-desktop.webp" />
@@ -39,19 +45,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <!-- GOOGLE ANALYTICS (REEMPLAZA G-XXXX) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HCHCME574J"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-XXXX');
+    gtag('config', 'G-HCHCME574J');
   </script>
 
 </head>
 
 <body>
-
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TT6TCMQL"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 <nav class="navbar">
   <div class="logo">Terrenos Yucatán</div>
   <div class="nav-links">
@@ -97,16 +106,16 @@
   </div>
 </section>
 
-<section class="investment">
+<!-- <section class="investment">
   <h2>Desde <span class="price">$62,500 MXN</span></h2>
   <p>Pagos desde <span class="price-small">$1,800 mensuales</span></p>
-</section>
+</section> -->
 
 <section class="cta">
   <h2>Recibe información personalizada</h2>
   <a class="btn whatsapp-btn" href="#">
     <img src="/Android_App_Icon_2026.png" class="icon" />
-    Contactar por WhatsApp
+    Hablar con un asesor
   </a>
 </section>
 
@@ -114,8 +123,24 @@
   <h2>Agenda información</h2>
 
   <form id="leadForm">
-    <input placeholder="Nombre" id="nombre" required />
-    <button type="submit">Quiero información</button>
+<div class="hidden" aria-hidden="true">
+      <label for="b_website">Si ves esto, no lo llenes</label>
+      <input type="text" name="b_website" id="b_website" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="text" placeholder="Nombre completo" id="nombre" autocomplete="name" required />
+    <input type="tel" id="phoneNumber" placeholder="Número de telefono"autocomplete="tel"required>
+    <select id="uso" name="uso" required class="border p-2 rounded bg-white">
+        <option value="" disabled selected>¿Para qué buscas el terreno?</option>
+        <option value="vivir">Para construir mi casa</option>
+        <option value="inversion">Inversión a largo plazo</option>
+        <option value="negocio">Uso comercial</option>
+    </select>
+    <input type="checkbox" name="consentimiento" required class="mt-1" /> 
+      <span>
+        He leído y acepto el <strong>Aviso de Privacidad</strong>. Autorizo el contacto comercial vía WhatsApp/Email para recibir la lista de precios y disponibilidad.
+      </span>
+    
+    <button type="submit" class="btn whatsapp-btn">Contactar por WhatsApp</button>
   </form>
 </section>
 
@@ -135,34 +160,89 @@
 window.addEventListener("DOMContentLoaded", () => {
 
   const PHONE = "529992768570";
+  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw-XArfXWtKt2JIrfwOgYhg-33UFI7y9EtRol17QKtbaBoXpCs9MqvKeOWBmi0SIFcanQ/exec";
 
+  // ⏱️ Tiempo de carga (anti-bot)
+  const startTime = Date.now();
+
+  // 🧠 Construcción de mensaje
   function buildMessage() {
-    const nombre = document.getElementById("nombre")?.value || "";
+    const nombre = document.getElementById("nombre")?.value.trim() || "";
+    const telefono = document.getElementById("phoneNumber")?.value.trim() || "";
+    const uso = document.getElementById("uso")?.value || "";
 
-    if (nombre) {
-      return `Hola, soy ${nombre}, me interesa más información sobre terrenos en Yucatán.`;
+    if (nombre && telefono && uso) {
+      return `Hola, soy ${nombre}. Busco terreno para ${uso}. Mi número es ${telefono}.`;
     }
 
     return "Hola, quiero información sobre terrenos en Yucatán";
   }
 
-  function sendToWhatsApp(e){
+  // 📊 Envío a Google Sheets (Make)
+  async function sendToSheets(data) {
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ...data,
+          fecha: new Date().toISOString(),
+          fuente: "landing",
+          userAgent: navigator.userAgent
+        })
+      });
+    } catch (err) {
+      console.log("Error enviando a Sheets:", err);
+    }
+  }
+
+  // 🚀 Handler principal
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    const nombre = document.getElementById("nombre")?.value.trim() || "";
+    const telefono = document.getElementById("phoneNumber")?.value.trim() || "";
+    const uso = document.getElementById("uso")?.value || "";
+
+    // 🛡 Honeypot correcto
+    const honeypot = document.getElementById("b_website")?.value || "";
+
+    // ⏱️ Tiempo
+    const tiempo = Date.now() - startTime;
+
+    // 🚫 Filtros anti-bot
+    if (honeypot !== "" || tiempo < 3000) {
+      console.log("Bot detectado");
+      return;
+    }
+
+    // 📊 Enviar datos completos
+    const secretkeyapps="secretkAccount1@#-."
+    await sendToSheets({
+      nombre,
+      telefono,
+      uso,
+      secretkeyscri: secretkeyapps
+    });
+
+    // 📲 WhatsApp
     const mensaje = buildMessage();
     window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(mensaje)}`, "_blank");
   }
 
+  // 🔘 Eventos
   document.querySelectorAll(".whatsapp-btn").forEach(btn => {
-    btn.addEventListener("click", sendToWhatsApp);
+    btn.addEventListener("click", handleSubmit);
   });
 
   const form = document.getElementById("leadForm");
-
   if (form) {
-    form.addEventListener("submit", sendToWhatsApp);
+    form.addEventListener("submit", handleSubmit);
   }
 
-  // LIGHTBOX MEJORADO (IMAGEN COMPLETA)
+  // 🖼 Lightbox
   const images = document.querySelectorAll(".gallery img");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
@@ -170,11 +250,7 @@ window.addEventListener("DOMContentLoaded", () => {
   images.forEach(img => {
     img.addEventListener("click", () => {
       lightbox.style.display = "flex";
-
-      //  usa la imagen ORIGINAL sin recorte
       lightboxImg.src = img.src;
-
-      lightboxImg.style.objectFit = "contain";
     });
   });
 
@@ -329,6 +405,10 @@ h1, h2 {
 .gallery img:hover {
   transform: scale(1.05);
   opacity: 0.85;
+}
+.hidden {
+  display:none !important;
+  visibility:hidden;
 }
 
 /* LIGHTBOX FULL */

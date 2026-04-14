@@ -81,7 +81,7 @@
     <h1>Terrenos en Yucatán cerca de la playa</h1>
     <p>Invierte desde cualquier parte de México en una zona con alto crecimiento</p>
 
-    <a class="btn" href="#form">
+    <a class="btn whatsapp-btn" >
       Contactar por WhatsApp
     </a>
   </div>
@@ -148,7 +148,7 @@
   <img id="lightbox-img" />
 </div>
 
-<a target="_blank" class="whatsapp-float whatsapp-btn">
+<a target="_blank" class="whatsapp-float">
   <img src="/Android_App_Icon_2026.png" />
 </a>
 
@@ -161,107 +161,136 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const PHONE = "529992768570";
   const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw-XArfXWtKt2JIrfwOgYhg-33UFI7y9EtRol17QKtbaBoXpCs9MqvKeOWBmi0SIFcanQ/exec";
+  const SECRET = "secretkAccount1@#-.";
 
-  // ⏱️ Tiempo de carga (anti-bot)
   const startTime = Date.now();
 
-  // 🧠 Construcción de mensaje
-  function buildMessage() {
-    const nombre = document.getElementById("nombre")?.value.trim() || "";
-    const telefono = document.getElementById("phoneNumber")?.value.trim() || "";
-    const uso = document.getElementById("uso")?.value || "";
-
+  // 🧠 Construcción de mensaje (SIN ERRORES)
+  function buildMessage(nombre, telefono, uso) {
     if (nombre && telefono && uso) {
       return `Hola, soy ${nombre}. Busco terreno para ${uso}. Mi número es ${telefono}.`;
+    }
+
+    if (nombre) {
+      return `Hola, soy ${nombre}. Me interesa información sobre terrenos en Yucatán.`;
     }
 
     return "Hola, quiero información sobre terrenos en Yucatán";
   }
 
-  // 📊 Envío a Google Sheets (Make)
-async function sendToSheets({ nombre, telefono, uso, secretkeyscri }) {
-  try {
-    const params = new URLSearchParams();
+  // 📊 ENVÍO A APPS SCRIPT (FORMATO CORRECTO)
+  async function sendToSheets({ nombre, telefono, uso }) {
+    try {
+      const params = new URLSearchParams();
 
-    params.append("nombre", nombre);
-    params.append("telefono", telefono);
-    params.append("uso", uso || "");
-    params.append("fuente", "landing");
-    params.append("secretkeyscri", secretkeyscri);
+      params.append("nombre", nombre);
+      params.append("telefono", telefono);
+      params.append("uso", uso || "");
+      params.append("fuente", "landing");
+      params.append("secretkeyscri", SECRET);
 
-    await fetch(WEBHOOK_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: params.toString()
-    });
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: params.toString()
+      });
 
-  } catch (err) {
-    console.log("Error enviando a Sheets:", err);
+      const text = await response.text();
+      console.log("Apps Script responde:", text);
+
+    } catch (error) {
+      console.error("Error enviando datos:", error);
+    }
   }
-}
 
   // 🚀 Handler principal
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const nombre = document.getElementById("nombre")?.value.trim() || "";
-    const telefono = document.getElementById("phoneNumber")?.value.trim() || "";
-    const uso = document.getElementById("uso")?.value || "";
+    const nombreInput = document.getElementById("nombre");
+    const telefonoInput = document.getElementById("phoneNumber");
+    const usoInput = document.getElementById("uso");
+    const honeypotInput = document.getElementById("b_website");
 
-    // 🛡 Honeypot correcto
-    const honeypot = document.getElementById("b_website")?.value || "";
-
-    // ⏱️ Tiempo
-    const tiempo = Date.now() - startTime;
-
-    // 🚫 Filtros anti-bot
-    if (honeypot !== "" || tiempo < 3000) {
-      console.log("Bot detectado");
+    if (!nombreInput || !telefonoInput || !usoInput) {
+      console.error("Inputs no encontrados");
       return;
     }
 
-    // 📊 Enviar datos completos
-    const secretkeyapps="secretkAccount1@#-."
-    await sendToSheets({
-      nombre,
-      telefono,
-      uso,
-      secretkeyscri: secretkeyapps
-    });
+    const nombre = nombreInput.value.trim();
+    const telefono = telefonoInput.value.trim();
+    const uso = usoInput.value;
+
+    const honeypot = honeypotInput ? honeypotInput.value : "";
+    const tiempo = Date.now() - startTime;
+
+    // 🛡 Anti-bot sólido
+    if (honeypot !== "") {
+      console.warn("Bot detectado (honeypot)");
+      return;
+    }
+    const consentimiento = document.querySelector('input[name="consentimiento"]')?.checked;
+
+    if (!consentimiento) {
+      console.warn("Sin consentimiento");
+      return;
+    }
+
+    if (tiempo < 2500) {
+      console.warn("Bot detectado (tiempo)");
+      return;
+    }
+
+    if (nombre.length < 2 || telefono.length < 8) {
+      console.warn("Datos inválidos");
+      return;
+    }
+
+    // 📊 Enviar a Sheets
+    await sendToSheets({ nombre, telefono, uso });
 
     // 📲 WhatsApp
-    const mensaje = buildMessage();
+    const mensaje = buildMessage(nombre, telefono, uso);
     window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(mensaje)}`, "_blank");
   }
 
-  // 🔘 Eventos
-  document.querySelectorAll(".whatsapp-btn").forEach(btn => {
-    btn.addEventListener("click", handleSubmit);
+  // 🔘 Eventos seguros
+// SOLO EL FORM ENVÍA DATOS
+const form = document.getElementById("leadForm");
+
+if (form) {
+  form.addEventListener("submit", handleSubmit);
+}
+
+// BOTONES SOLO SCROLL
+document.querySelectorAll(".whatsapp-btn").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    if (btn.type !== "submit") {
+      e.preventDefault();
+      window.location.href = "#form";
+    }
   });
+});
 
-  const form = document.getElementById("leadForm");
-  if (form) {
-    form.addEventListener("submit", handleSubmit);
-  }
-
-  // 🖼 Lightbox
+  // 🖼 Lightbox (seguro)
   const images = document.querySelectorAll(".gallery img");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
 
-  images.forEach(img => {
-    img.addEventListener("click", () => {
-      lightbox.style.display = "flex";
-      lightboxImg.src = img.src;
+  if (images && lightbox && lightboxImg) {
+    images.forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.src;
+      });
     });
-  });
 
-  lightbox.addEventListener("click", () => {
-    lightbox.style.display = "none";
-  });
+    lightbox.addEventListener("click", () => {
+      lightbox.style.display = "none";
+    });
+  }
 
 });
 </script>
@@ -412,8 +441,8 @@ h1, h2 {
   opacity: 0.85;
 }
 .hidden {
-  display:none !important;
-  visibility:hidden;
+  position: absolute;
+  left: -9999px;
 }
 
 /* LIGHTBOX FULL */
